@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your personalized recipe recommendations">
+    <title>Recipe Results - Recipe Finder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="results-header">
+        <div class="container">
+            <a href="/" class="back-button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                <span>New Search</span>
+            </a>
+            <h1 class="results-title">Your Recipe Matches</h1>
+        </div>
+    </header>
+
+    <main class="container results-container">
+        <div class="ingredients-summary">
+            <h2>Your Ingredients:</h2>
+            <div class="ingredient-tags">
+                {% for ingredient in ingredients %}
+                <span class="ingredient-tag">{{ ingredient }}</span>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% if recipes %}
+        <div class="recipes-grid">
+            {% for recipe in recipes %}
+            <article class="recipe-card">
+                <div class="recipe-header">
+                    <div class="recipe-title-section">
+                        <h3 class="recipe-name">{{ recipe.Recipe }}</h3>
+                        <div class="recipe-meta">
+                            <span class="meta-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 6v6l4 2"/>
+                                </svg>
+                                {{ recipe.TimeInMins }} mins
+                            </span>
+                            <span class="meta-item cuisine">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                {{ recipe.Cuisine }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="match-score">
+                        <div class="score-circle">
+                            <span class="score-number">{{ recipe.match_score }}</span>
+                            <span class="score-label">match</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recipe-body">
+                    <div class="recipe-section">
+                        <h4 class="section-title">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 6h18M3 12h18M3 18h18"/>
+                            </svg>
+                            Ingredients ({{ recipe.No_of_Ingredients }})
+                        </h4>
+                        <div class="ingredients-list">
+                            {% for ingredient in recipe.Cleaned_Ingredients %}
+                            <span class="ingredient-item 
+                                {% if ingredient.lower() in ingredients|map('lower')|list %}ingredient-available{% endif %}">
+                                {{ ingredient }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <details class="instructions-details">
+                        <summary class="instructions-summary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                            <span>View Instructions</span>
+                            <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9l6 6 6-6"/>
+                            </svg>
+                        </summary>
+                        <div class="instructions-content">
+                            <p>{{ recipe.Instructions }}</p>
+                        </div>
+                    </details>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-results">
+            <div class="no-results-icon">😔</div>
+            <h2>No Recipes Found</h2>
+            <p>We couldn't find any recipes matching your ingredients. Try adding more ingredients!</p>
+            <a href="/" class="search-again-button">Search Again</a>
+        </div>
+        {% endif %}
+    </main>
+
+    <footer class="footer">
+        <p>Made with ❤️ for home cooks everywhere</p>
+    </footer>
+</body>
+</html>

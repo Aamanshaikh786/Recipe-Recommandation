@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Find delicious recipes based on ingredients you have at home">
+    <title>Recipe Finder - Cook with What You Have</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="container">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-main">Find Your Perfect Recipe</span>
+                    <span class="title-sub">Cook with what you have</span>
+                </h1>
+                <p class="hero-description">
+                    Enter the ingredients you have, and we'll find the best recipes you can make right now.
+                </p>
+
+                <form action="/recommend" method="POST" class="search-form">
+                    <div class="input-wrapper">
+                        <svg class="input-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 6h18M3 12h18M3 18h18"/>
+                        </svg>
+                        <input 
+                            type="text" 
+                            name="ingredients" 
+                            id="ingredients"
+                            class="ingredient-input" 
+                            placeholder="e.g., tomato, onion, rice, chicken..."
+                            required
+                            autocomplete="off"
+                        >
+                    </div>
+                    <button type="submit" class="search-button">
+                        <span>Find Recipes</span>
+                        <svg class="button-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </form>
+
+                <div class="tips">
+                    <p class="tips-title">💡 Pro tip:</p>
+                    <p class="tips-text">Separate ingredients with commas for best results</p>
+                </div>
+            </div>
+
+            <div class="floating-cards">
+                <div class="floating-card card-1">
+                    <div class="card-emoji">🍝</div>
+                    <p>Italian</p>
+                </div>
+                <div class="floating-card card-2">
+                    <div class="card-emoji">🍛</div>
+                    <p>Indian</p>
+                </div>
+                <div class="floating-card card-3">
+                    <div class="card-emoji">🍜</div>
+                    <p>Asian</p>
+                </div>
+                <div class="floating-card card-4">
+                    <div class="card-emoji">🥗</div>
+                    <p>Healthy</p>
+                </div>
+            </div>
+        </div>
+
+        <section class="features">
+            <div class="feature">
+                <div class="feature-icon">🎯</div>
+                <h3>Smart Matching</h3>
+                <p>Our algorithm finds recipes that match your available ingredients</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Quick & Easy</h3>
+                <p>Get instant recipe recommendations in seconds</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌍</div>
+                <h3>Global Cuisine</h3>
+                <p>Explore recipes from around the world</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Made with ❤️ for home cooks everywhere</p>
+    </footer>
+</body>
+</html>
